@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,11 +48,9 @@ class CardWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: Image.asset(
-              Images.images[index],
-              height: screenHeight * 0.1020,
-            ),
+          Image.asset(
+            Images.images[index],
+            height: screenHeight * 0.1020,
           ),
           size20,
           Padding(
