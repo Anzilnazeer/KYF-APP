@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  dio: ^5.0.2
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.4.0
@@ -38,16 +39,16 @@ dependencies:
   http: ^0.13.5
   shimmer_animation: ^2.1.0+1
 
-dev_dependencies: 
+dev_dependencies:
   flutter_launcher_icons: ^0.12.0
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
-flutter_icons: 
+flutter_icons:
   android: true
   ios: true
-  image_path: 'assets/logo.png'
+  image_path: "assets/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

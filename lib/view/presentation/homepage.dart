@@ -22,17 +22,20 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   List<DetailsModel> fruitsList = [];
-  @override
-  void initState() {
-    super.initState();
-    fetchdetail();
-  }
 
-  fetchdetail() async {
+  Future<List<DetailsModel>> fetchdetail() async {
     final fruits = await ApiModule.fetchDetails();
     setState(() {
-      fruitsList = fruits;
+      fruitsList.addAll(fruits);
     });
+    return fruitsList;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchdetail();
   }
 
   @override
@@ -71,45 +74,40 @@ class _HomepageState extends State<Homepage> {
               size20,
               // CardWidget(),
 
-              FutureBuilder<List<DetailsModel>>(
-                  future: ApiModule.fetchDetails(),
-                  builder: (context, snapshot) {
-                    return GridView.builder(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio:
-                                screenHeight * 0.473 / screenHeight * 1.207,
-                            crossAxisSpacing: 15,
-                            mainAxisSpacing: 15),
-                        itemCount: 4,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => FruitDetails(
-                                    fruitsList: fruitsList,
-                                    index: index,
-                                  ),
-                                ));
-                              },
-                              child: fruitsList.isNotEmpty
-                                  ? CardWidget(
-                                      fruitsList: fruitsList,
-                                      index: index,
-                                    )
-                                  : Center(
-                                      child: Shimmer(
-                                      color: const Color.fromARGB(
-                                          255, 188, 188, 188),
-                                      child: Skeleton(
-                                        width: screenWidth * 0.44,
-                                        height: screenHeight * 0.37,
-                                      ),
-                                    )));
-                        });
-                  }),
+              GridView.builder(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio:
+                          screenHeight * 0.473 / screenHeight * 1.207,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15),
+                  itemCount: 4,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => FruitDetails(
+                              fruitsList: fruitsList,
+                              index: index,
+                            ),
+                          ));
+                        },
+                        child: fruitsList.isNotEmpty
+                            ? CardWidget(
+                                fruitsList: fruitsList,
+                                index: index,
+                              )
+                            : Center(
+                                child: Shimmer(
+                                color: const Color.fromARGB(255, 188, 188, 188),
+                                child: Skeleton(
+                                  width: screenWidth * 0.44,
+                                  height: screenHeight * 0.37,
+                                ),
+                              )));
+                  })
             ],
           ),
         ),
